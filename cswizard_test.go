@@ -1,7 +1,7 @@
 package cswizard_test
 
 import (
-	"cswizard"
+	"github.com/m1kc/go-cswizard"
 
 	"bytes"
 	"encoding/csv"
