@@ -5,3 +5,20 @@ CSWizard is a CSV writer that doesn't stand in your way as your system evolves. 
 So, in a nutshell, that's a small wrapper around `encoding/csv` for reports that change often in various ways.
 
 See [example.go](example/example.go) for typical usage.
+
+
+## Use it in your project
+
+### `go get` users
+
+Make sure your GOPATH is set, and run:
+
+```
+go get -u github.com/m1kc/go-cswizard
+```
+
+### `gb` users
+
+```
+gb vendor fetch github.com/m1kc/go-cswizard
+```
