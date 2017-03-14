@@ -15,7 +15,7 @@ type client struct {
 }
 
 func main() {
-	clients := make([]Client, 0, 5)
+	clients := make([]client, 0, 5)
 	clients = append(clients, client{Name: "John Smith", Age: 34, Height: 181})
 	clients = append(clients, client{Name: "Peter Smith", Age: 44, Height: 179})
 	clients = append(clients, client{Name: "John Sebastine", Age: 33, Height: 159})
@@ -37,7 +37,10 @@ func main() {
 	colAge := w.AddHeader("Client age")
 	colHeight := w.AddHeader("Client height (predicted)")
 	
-	w.LockHeaders()
+	err := w.LockHeaders()
+	if err != nil {
+		return
+	}
 	
 	for _, c := range clients {
 		row := w.CreateRow()

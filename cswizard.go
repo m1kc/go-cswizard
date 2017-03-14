@@ -17,7 +17,11 @@
 //	colName := w.AddHeader("Client name")
 //	colAge := w.AddHeader("Client age")
 //	colHeight := w.AddHeader("Client height (predicted)")
-//	w.LockHeaders()
+//
+//	err := w.LockHeaders()
+//	if err != nil {
+//		return
+//	}
 //
 //	for _, c := range clients {
 //		row := w.CreateRow()
@@ -43,7 +47,9 @@ type Writer interface {
 	// AddHeader adds a new header and returns its index which you can
 	// use when you'll be filling a row.
 	AddHeader(string) (id uint64)
-	// LockHeaders locks header list. After that you can start adding the rows.
+	// LockHeaders writes all headers added before into CSV and locks
+	// header list. You must call LockHeaders before you can start adding
+	// the rows. Returns an error (if any).
 	LockHeaders() error
 	// CreateRow creates a new row and returns a buffer which you can populate
 	// using indexes you've got from AddHeader calls, and later commit with
@@ -53,7 +59,7 @@ type Writer interface {
 	// in the future.
 	CreateRow() []string
 	// CommitRow accepts a buffer of columns (which you normally obtain
-	// from CreateRow) and adds it into CSV.
+	// from CreateRow) and adds it into CSV. Returns an error (if any).
 	CommitRow([]string) error
 }
 
