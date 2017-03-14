@@ -62,7 +62,7 @@ var (
 	errHeadersNotLocked = errors.New("cswizard: trying to add a row before header lock")
 )
 
-type BasicWriter struct {
+type basicWriter struct {
 	headers       []string
 	headersLocked bool
 
@@ -72,7 +72,7 @@ type BasicWriter struct {
 
 // New wraps an existing csv.Writer into cswizard.Writer.
 func New(w *csv.Writer) Writer {
-	return &BasicWriter{
+	return &basicWriter{
 		headers:       make([]string, 0, 10),
 		headersLocked: false,
 
@@ -81,7 +81,7 @@ func New(w *csv.Writer) Writer {
 	}
 }
 
-func (this *BasicWriter) AddHeader(str string) (ret uint64) {
+func (this *basicWriter) AddHeader(str string) (ret uint64) {
 	if this.headersLocked {
 		panic(errHeadersLocked)
 	}
@@ -91,14 +91,14 @@ func (this *BasicWriter) AddHeader(str string) (ret uint64) {
 	return
 }
 
-func (this *BasicWriter) LockHeaders() error {
+func (this *basicWriter) LockHeaders() error {
 	this.headersLocked = true
 	l := len(this.headers)
 	this.buf = make([]string, l, l)
 	return this.w.Write(this.headers)
 }
 
-func (this *BasicWriter) CreateRow() []string {
+func (this *basicWriter) CreateRow() []string {
 	if !this.headersLocked {
 		panic(errHeadersNotLocked)
 	}
@@ -106,7 +106,7 @@ func (this *BasicWriter) CreateRow() []string {
 	return this.buf
 }
 
-func (this *BasicWriter) CommitRow(row []string) (err error) {
+func (this *basicWriter) CommitRow(row []string) (err error) {
 	if !this.headersLocked {
 		panic(errHeadersNotLocked)
 	}
