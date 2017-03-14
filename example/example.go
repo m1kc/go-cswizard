@@ -1,4 +1,4 @@
-package cswizard
+package cswizardExample
 
 import (
 	"encoding/csv"
@@ -8,7 +8,7 @@ import (
 	"github.com/m1kc/go-cswizard"
 )
 
-type Client struct {
+type client struct {
 	Name   string
 	Age    uint64
 	Height uint64
@@ -16,11 +16,11 @@ type Client struct {
 
 func main() {
 	clients := make([]Client, 0, 5)
-	clients = append(clients, Client{Name: "John Smith", Age: 34, Height: 181})
-	clients = append(clients, Client{Name: "Peter Smith", Age: 44, Height: 179})
-	clients = append(clients, Client{Name: "John Sebastine", Age: 33, Height: 159})
-	clients = append(clients, Client{Name: "Markus Hallberg", Age: 18, Height: 169})
-	clients = append(clients, Client{Name: "John Wonapaska", Age: 59, Height: 170})
+	clients = append(clients, client{Name: "John Smith", Age: 34, Height: 181})
+	clients = append(clients, client{Name: "Peter Smith", Age: 44, Height: 179})
+	clients = append(clients, client{Name: "John Sebastine", Age: 33, Height: 159})
+	clients = append(clients, client{Name: "Markus Hallberg", Age: 18, Height: 169})
+	clients = append(clients, client{Name: "John Wonapaska", Age: 59, Height: 170})
 	
 	cw := csv.NewWriter(os.Stdout)
 	w := cswizard.New(cw)
